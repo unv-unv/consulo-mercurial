@@ -19,6 +19,7 @@ import consulo.logging.Logger;
 import consulo.project.Project;
 import consulo.ui.ex.action.AnAction;
 import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import consulo.ui.ex.action.Presentation;
 import consulo.versionControlSystem.AbstractVcsHelper;
 import consulo.versionControlSystem.ProjectLevelVcsManager;
@@ -32,7 +33,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
-abstract class HgAbstractFilesAction extends AnAction {
+abstract class HgAbstractFilesAction extends AnAction implements AnActionWithSyncUpdate {
 
   private static final Logger LOG = Logger.getInstance(HgAbstractGlobalAction.class.getName());
 
@@ -72,9 +73,8 @@ abstract class HgAbstractFilesAction extends AnAction {
     helper.showErrors(exceptions, vcs.getName());
   }
 
+  @Override
   public final void update(AnActionEvent e) {
-    super.update(e);
-
     Presentation presentation = e.getPresentation();
     final DataContext dataContext = e.getDataContext();
 

@@ -249,7 +249,7 @@ public class HgMqUnAppliedPatchesPanel extends JPanel implements DataProvider, H
     });
   }
 
-  private class MqDeleteAction extends DumbAwareAction {
+  private class MqDeleteAction extends DumbAwareAction implements AnActionWithSyncUpdate {
     @Override
     public void actionPerformed(AnActionEvent e) {
       final List<String> names = getSelectedPatchNames();

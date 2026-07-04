@@ -17,6 +17,7 @@ package org.zmlx.hg4idea.action.mq;
 
 import consulo.ui.ex.action.AnActionEvent;
 import consulo.application.progress.ProgressManager;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import consulo.ui.ex.action.DumbAwareAction;
 import jakarta.annotation.Nonnull;
 import org.zmlx.hg4idea.repo.HgRepository;
@@ -24,7 +25,7 @@ import org.zmlx.hg4idea.ui.HgMqUnAppliedPatchesPanel;
 
 import java.util.List;
 
-public abstract class HgActionFromMqPatches extends DumbAwareAction {
+public abstract class HgActionFromMqPatches extends DumbAwareAction implements AnActionWithSyncUpdate {
 
   @Override
   public void actionPerformed(AnActionEvent e) {

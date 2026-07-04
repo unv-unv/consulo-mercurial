@@ -155,7 +155,7 @@ public class HgBranchPopupActions {
         }
     }
 
-    public static class HgCloseBranchAction extends DumbAwareAction {
+    public static class HgCloseBranchAction extends DumbAwareAction implements AnActionWithSyncUpdate{
         @Nonnull
         private final List<HgRepository> myRepositories;
         @Nonnull
@@ -221,7 +221,7 @@ public class HgBranchPopupActions {
         }
     }
 
-    public static class HgNewBookmarkAction extends DumbAwareAction {
+    public static class HgNewBookmarkAction extends DumbAwareAction implements AnActionWithSyncUpdate {
         @Nonnull
         protected final List<HgRepository> myRepositories;
         @Nonnull
@@ -254,7 +254,7 @@ public class HgBranchPopupActions {
         }
     }
 
-    public static class HgShowUnnamedHeadsForCurrentBranchAction extends ActionGroup {
+    public static class HgShowUnnamedHeadsForCurrentBranchAction extends ActionGroup implements AnActionWithSyncUpdate {
         @Nonnull
         final HgRepository myRepository;
         @Nonnull

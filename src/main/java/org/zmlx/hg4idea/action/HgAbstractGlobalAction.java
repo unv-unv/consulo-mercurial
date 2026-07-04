@@ -15,6 +15,7 @@ package org.zmlx.hg4idea.action;
 import consulo.language.editor.CommonDataKeys;
 import consulo.project.Project;
 import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import consulo.ui.ex.action.DumbAwareAction;
 import consulo.util.lang.ObjectUtil;
 import consulo.versionControlSystem.ProjectLevelVcsManager;
@@ -30,7 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class HgAbstractGlobalAction extends DumbAwareAction {
+public abstract class HgAbstractGlobalAction extends DumbAwareAction implements AnActionWithSyncUpdate {
   public void actionPerformed(@Nonnull AnActionEvent event) {
     final Project project = event.getData(Project.KEY);
     if (project == null) {
@@ -51,7 +52,6 @@ public abstract class HgAbstractGlobalAction extends DumbAwareAction {
 
   @Override
   public void update(AnActionEvent e) {
-    super.update(e);
     boolean enabled = isEnabled(e);
     e.getPresentation().setEnabled(enabled);
   }
