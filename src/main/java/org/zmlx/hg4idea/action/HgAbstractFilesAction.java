@@ -51,8 +51,6 @@ abstract class HgAbstractFilesAction extends AnAction implements AnActionWithSyn
       return;
     }
 
-    project.save();
-
     final HgVcs vcs = HgVcs.getInstance(project);
     if ((vcs == null) || !ProjectLevelVcsManager.getInstance(project).checkAllFilesAreUnder(vcs, files)) {
       return;
