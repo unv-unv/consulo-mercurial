@@ -35,7 +35,7 @@ public class HgActionUtil {
   @Nonnull
   public static List<HgRepository> collectRepositoriesFromFiles(@Nonnull final HgRepositoryManager repositoryManager,
                                                                 @Nonnull Collection<VirtualFile> files) {
-    return ContainerUtil.mapNotNull(files, file -> repositoryManager.getRepositoryForFile(file));
+    return ContainerUtil.mapNotNull(files, file -> repositoryManager.getRepositoryForFileQuick(file));
   }
 
   @Nullable
@@ -47,6 +47,6 @@ public class HgActionUtil {
     }
     VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
     HgRepositoryManager repositoryManager = HgUtil.getRepositoryManager(project);
-    return file != null ? repositoryManager.getRepositoryForFile(file) : HgUtil.getCurrentRepository(project);
+    return file != null ? repositoryManager.getRepositoryForFileQuick(file) : HgUtil.getCurrentRepository(project);
   }
 }

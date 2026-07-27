@@ -99,6 +99,6 @@ public class HgCherryPicker extends VcsCherryPicker {
   @Override
   public boolean canHandleForRoots(@Nonnull Collection<VirtualFile> roots) {
     HgRepositoryManager hgRepositoryManager = HgUtil.getRepositoryManager(myProject);
-    return roots.stream().allMatch(r -> hgRepositoryManager.getRepositoryForRoot(r) != null);
+    return roots.stream().allMatch(r -> hgRepositoryManager.getRepositoryForRootQuick(r) != null);
   }
 }

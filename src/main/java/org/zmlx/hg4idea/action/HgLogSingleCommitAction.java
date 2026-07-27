@@ -36,7 +36,7 @@ public abstract class HgLogSingleCommitAction extends VcsLogSingleCommitAction<H
     @Nullable
     @Override
     protected HgRepository getRepositoryForRoot(@Nonnull Project project, @Nonnull VirtualFile root) {
-        return getRepositoryManager(project).getRepositoryForRoot(root);
+        return getRepositoryManager(project).getRepositoryForRootQuick(root);
     }
 
 }

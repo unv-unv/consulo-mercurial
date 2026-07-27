@@ -333,7 +333,7 @@ public class HgLogProvider implements VcsLogProvider {
   @Nullable
   @Override
   public String getCurrentBranch(@Nonnull VirtualFile root) {
-    HgRepository repository = myRepositoryManager.getRepositoryForRoot(root);
+    HgRepository repository = myRepositoryManager.getRepositoryForRootQuick(root);
     if (repository == null) return null;
     return repository.getCurrentBranchName();
   }

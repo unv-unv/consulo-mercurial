@@ -518,7 +518,7 @@ public abstract class HgUtil {
 
   @Nullable
   public static String getRepositoryDefaultPath(@Nonnull Project project, @Nonnull VirtualFile root) {
-    HgRepository hgRepository = getRepositoryManager(project).getRepositoryForRoot(root);
+    HgRepository hgRepository = getRepositoryManager(project).getRepositoryForRootQuick(root);
     assert hgRepository != null : "Repository can't be null for root " + root.getName();
     return hgRepository.getRepositoryConfig().getDefaultPath();
   }
@@ -548,7 +548,7 @@ public abstract class HgUtil {
   @Nonnull
   public static Collection<String> getRepositoryPaths(@Nonnull Project project,
                                                       @Nonnull VirtualFile root) {
-    HgRepository hgRepository = getRepositoryManager(project).getRepositoryForRoot(root);
+    HgRepository hgRepository = getRepositoryManager(project).getRepositoryForRootQuick(root);
     assert hgRepository != null : "Repository can't be null for root " + root.getName();
     return hgRepository.getRepositoryConfig().getPaths();
   }
