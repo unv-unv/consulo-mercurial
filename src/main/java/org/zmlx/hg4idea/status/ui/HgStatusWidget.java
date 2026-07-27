@@ -7,6 +7,7 @@ import consulo.project.ui.wm.StatusBarWidgetFactory;
 import consulo.ui.ex.popup.ListPopup;
 import consulo.versionControlSystem.distributed.DvcsUtil;
 import consulo.versionControlSystem.distributed.ui.DvcsStatusWidget;
+import consulo.virtualFileSystem.VirtualFile;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import org.zmlx.hg4idea.HgProjectSettings;
@@ -20,51 +21,50 @@ import org.zmlx.hg4idea.util.HgUtil;
  * Widget to display basic hg status in the status bar.
  */
 public class HgStatusWidget extends DvcsStatusWidget<HgRepository> {
-  @Nonnull
-  private final HgVcs myVcs;
-  @Nonnull
-  private final HgProjectSettings myProjectSettings;
+    @Nonnull
+    private final HgVcs myVcs;
+    @Nonnull
+    private final HgProjectSettings myProjectSettings;
 
-  public HgStatusWidget(@Nonnull HgVcs vcs, @Nonnull Project project, @Nonnull StatusBarWidgetFactory factory, @Nonnull HgProjectSettings projectSettings) {
-    super(project, factory, HgVcs.VCS_ID);
-    myVcs = vcs;
-    myProjectSettings = projectSettings;
+    public HgStatusWidget(@Nonnull HgVcs vcs, @Nonnull Project project, @Nonnull StatusBarWidgetFactory factory, @Nonnull HgProjectSettings projectSettings) {
+        super(project, factory, HgVcs.VCS_ID);
+        myVcs = vcs;
+        myProjectSettings = projectSettings;
 
-    project.getMessageBus().connect(this).subscribe(HgStatusUpdater.class, (p, root) -> updateLater());
-  }
+        project.getMessageBus().connect(this).subscribe(HgStatusUpdater.class, (p, root) -> updateLater());
+    }
 
-  @Override
-  public StatusBarWidget copy() {
-    return new HgStatusWidget(myVcs, myProject, myFactory, myProjectSettings);
-  }
+    @Override
+    public StatusBarWidget copy() {
+        return new HgStatusWidget(myVcs, myProject, myFactory, myProjectSettings);
+    }
 
-  @Nullable
-  @Override
-  protected HgRepository guessCurrentRepository(@Nonnull Project project) {
-    return DvcsUtil.guessCurrentRepositoryQuick(project, HgUtil.getRepositoryManager(project),
-                                                HgProjectSettings.getInstance(project).getRecentRootPath());
-  }
+    @Override
+    protected HgRepository guessCurrentRepository(@Nonnull Project project, @Nullable VirtualFile selectedFile) {
+        return DvcsUtil.guessWidgetRepository(project, HgUtil.getRepositoryManager(project),
+            HgProjectSettings.getInstance(project).getRecentRootPath(), selectedFile);
+    }
 
-  @Nonnull
-  @Override
-  protected String getFullBranchName(@Nonnull HgRepository repository) {
-    return HgUtil.getDisplayableBranchOrBookmarkText(repository);
-  }
+    @Nonnull
+    @Override
+    protected String getFullBranchName(@Nonnull HgRepository repository) {
+        return HgUtil.getDisplayableBranchOrBookmarkText(repository);
+    }
 
-  @Override
-  protected boolean isMultiRoot(@Nonnull Project project) {
-    return HgUtil.getRepositoryManager(project).moreThanOneRoot();
-  }
+    @Override
+    protected boolean isMultiRoot(@Nonnull Project project) {
+        return HgUtil.getRepositoryManager(project).moreThanOneRoot();
+    }
 
-  @Nonnull
-  @Override
-  protected ListPopup getPopup(@Nonnull Project project, @Nonnull HgRepository repository) {
-    return HgBranchPopup.getInstance(project, repository).asListPopup();
-  }
+    @Nonnull
+    @Override
+    protected ListPopup getPopup(@Nonnull Project project, @Nonnull HgRepository repository) {
+        return HgBranchPopup.getInstance(project, repository).asListPopup();
+    }
 
-  @Override
-  protected void rememberRecentRoot(@Nonnull String path) {
-    myProjectSettings.setRecentRootPath(path);
-  }
+    @Override
+    protected void rememberRecentRoot(@Nonnull String path) {
+        myProjectSettings.setRecentRootPath(path);
+    }
 
 }
